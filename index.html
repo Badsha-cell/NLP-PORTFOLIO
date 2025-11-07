@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NLP Course Portfolio - Anik Mukherjee</title>
+    <style>
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+        /* Header Section */
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem 0;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-info {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .header-info h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+        .header-info p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+        .reg-details {
+            margin-top: 0.8rem;
+            font-size: 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        .reg-details span {
+            background: rgba(255,255,255,0.2);
+            padding: 0.4rem 1rem;
+            border-radius: 25px;
+            backdrop-filter: blur(5px);
+        }
+        /* Navigation */
+        nav {
+            background: rgba(255,255,255,0.95);
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 99;
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .nav-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 0.7rem 1.3rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+        }
+        .nav-btn:hover {
+            background: #5a6fd8;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+        .nav-btn.active {
+            background: #764ba2;
+            box-shadow: 0 0 15px rgba(118, 75, 162, 0.5);
+        }
+        /* Main Content */
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 20px;
+        }
+        .section {
+            display: none;
+            background: white;
+            margin-bottom: 2rem;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            animation: fadeIn 0.6s ease-out;
+        }
+        .section.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .section-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        .section-header h2 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+        .section-header .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+        .section-content {
+            padding: 2rem;
+        }
+        .subsection {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+        .subsection:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .subsection h3 {
+            color: #667eea;
+            margin-bottom: 0.8rem;
+            font-size: 1.4rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        .subsection h3::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 8px;
+            background: #667eea;
+            border-radius: 50%;
+        }
+        .subsection p {
+            margin-bottom: 1rem;
+            text-align: justify;
+        }
+        .highlight {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 1rem;
+            border-radius: 12px;
+            margin: 1rem 0;
+            border-left: 5px solid #667eea;
+            font-style: italic;
+        }
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            margin: 1rem 0;
+            position: relative;
+        }
+        .code-block::before {
+            content: 'Code Example';
+            position: absolute;
+            top: -10px;
+            left: 15px;
+            background: #667eea;
+            color: white;
+            font-size: 0.8rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+        }
+        ul, ol {
+            margin: 1rem 0;
+            padding-left: 2rem;
+        }
+        li {
+            margin-bottom: 0.5rem;
+        }
+        .github-link {
+            text-align: center;
+            margin: 1.5rem 0;
+        }
+        .github-link a {
+            background: #667eea;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+        .github-link a:hover {
+            background: #5a6fd8;
+        }
+        .unit-link {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        .unit-link:hover {
+            background: #5a6fd8;
+            transform: translateY(-2px);
+        }
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: #2d3748;
+            color: #e2e8f0;
+            margin-top: 3rem;
+        }
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-info h1 {
+                font-size: 1.8rem;
+            }
+            .reg-details {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            .nav-container {
+                gap: 0.8rem;
+            }
+            .nav-btn {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+            .section-header h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header with Student Details -->
+    <header>
+        <div class="header-info">
+            <h1>Natural Language Processing</h1>
+            <p>Course Portfolio - Submitted on November 07, 2025</p>
+            <div class="reg-details">
+                <span><strong>Name:</strong> Anik Mukherjee</span>
+                <span><strong>Reg No:</strong> RA2211003010852</span>
+                <span><strong>Email:</strong> am7163@srmist.edu.in</span>
+                <span><strong>Phone:</strong> 7478054775</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <button class="nav-btn active" onclick="showSection('introduction')">Introduction</button>
+            <button class="nav-btn" onclick="showSection('objectives')">Learning Objectives</button>
+            <button class="nav-btn" onclick="showSection('units')">Course Units</button>
+            <button class="nav-btn" onclick="showSection('reflection')">Reflection</button>
+            <button class="nav-btn" onclick="showSection('achievements')">Achievements</button>
+            <button class="nav-btn" onclick="showSection('case-study')">Case Study</button>
+            <button class="nav-btn" onclick="showSection('project')">Project Report</button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Introduction Section -->
+        <section id="introduction" class="section active">
+            <div class="section-header">
+                <h2>Introduction</h2>
+                <p class="subtitle">About Me and the Course</p>
+            </div>
+            <div class="section-content">
+                <div class="subsection">
+                    <h3>About Me</h3>
+                    <p>I am <strong>Anik Mukherjee</strong>, a B.Tech Computer Science & Engineering student at SRM Institute of Science and Technology. My registration number is <strong>RA2211003010852</strong>. This portfolio presents my comprehensive learning journey in the <strong>Natural Language Processing (CS419)</strong> course.</p>
+                </div>
+
+                <div class="subsection">
+                    <h3>Course Introduction</h3>
+                    <p><strong>What the course is about:</strong> Natural Language Processing (NLP) is a field of artificial intelligence focused on enabling computers to understand, interpret, and generate human language. It combines linguistics, computer science, and machine learning to process unstructured text data.</p>
+                    <p><strong>Skills and Knowledge Focused On:</strong> Text preprocessing, morphological analysis, syntactic parsing, semantic understanding, word embeddings, transformer models, and building real-world NLP applications like chatbots and translation systems.</p>
+                    <p><strong>What I Expected to Learn:</strong> I aimed to master the NLP pipeline, implement models using Python (NLTK, spaCy, Hugging Face), understand transformer architectures, and apply NLP to solve practical problems like fake news detection and sentiment analysis.</p>
+                </div>
+
+                <div class="github-link">
+                    <a href="https://github.com/anikmukherjee/nlp-portfolio" target="_blank">View Full Portfolio on GitHub</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Learning Objectives Section -->
+        <section id="objectives" class="section">
+            <div class="section-header">
+                <h2>Learning Objectives</h2>
+                <p class="subtitle">Main Goals for Each Unit</p>
+            </div>
+            <div class="section-content">
+                <div class="subsection">
+                    <h3>Unit 1: Introduction to NLP</h3>
+                    <ul>
+                        <li>Understand the NLP pipeline and core challenges (ambiguity, context, coreference).</li>
+                        <li>Master text acquisition, cleaning, tokenization, and normalization.</li>
+                        <li>Learn feature extraction techniques (BoW, TF-IDF, embeddings).</li>
+                    </ul>
+                    <a href="#" class="unit-link" onclick="showSection('units'); showUnit('unit1'); return false;">View Unit 1 Details</a>
+                </div>
+
+                <div class="subsection">
+                    <h3>Unit 2: Morphological Analysis & Text Processing</h3>
+                    <ul>
+                        <li>Study morphemes, inflectional/derivational morphology.</li>
+                        <li>Implement stemming (Porter, Snowball) and lemmatization.</li>
+                        <li>Apply normalization for consistent text representation.</li>
+                    </ul>
+                    <a href="#" class="unit-link" onclick="showSection('units'); showUnit('unit2'); return false;">View Unit 2 Details</a>
+                </div>
+
+                <div class="subsection">
+                    <h3>Unit 3: Syntax and Parsing</h3>
+                    <ul>
+                        <li>Define Context-Free Grammars (CFG) and production rules.</li>
+                        <li>Implement top-down, bottom-up, CKY, and Earley parsing.</li>
+                        <li>Perform dependency parsing for grammatical relationships.</li>
+                    </ul>
+                    <a href="#" class="unit-link" onclick="showSection('units'); showUnit('unit3'); return false;">View Unit 3 Details</a>
+                </div>
+
+                <div class="subsection">
+                    <h3>Unit 4: Semantic Analysis</h3>
+                    <ul>
+                        <li>Perform Word Sense Disambiguation (WSD) using Lesk, supervised methods.</li>
+                        <li>Apply Semantic Role Labeling (SRL) to identify argument structure.</li>
+                        <li>Use distributional semantics (Word2Vec, GloVe, FastText).</li>
+                    </ul>
+                    <a href="#" class="unit-link" onclick="showSection('units'); showUnit('unit4'); return false;">View Unit 4 Details</a>
+                </div>
+
+                <div class="subsection">
+                    <h3>Unit 5: Applications and Advanced Topics</h3>
+                    <ul>
+                        <li>Build machine translation systems (rule-based, statistical, neural).</li>
+                        <li>Develop dialogue systems and chatbots (rule-based, generative).</li>
+                        <li>Fine-tune transformer models like BERT for downstream tasks.</li>
+                    </ul>
+                    <a href="#" class="unit-link" onclick="showSection('units'); showUnit('unit5'); return false;">View Unit 5 Details</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Course Units Section (Original 5 Units) -->
+        <section id="units" class="section">
+            <div class="section-header">
+                <h2>Course Units</h2>
+                <p class="subtitle">Abstract Presentation of 5 Units</p>
+            </div>
+            <div class="section-content">
+                <!-- Unit 1 -->
+                <div id="unit1" class="unit active">
+                    <div class="unit-header">
+                        <h2>Unit 1: Introduction to NLP</h2>
+                        <p class="subtitle">Foundations and Language Processing Pipeline</p>
+                    </div>
+                    <div class="unit-content">
+                        <div class="topic">
+                            <h3>Overview of Natural Language Processing</h3>
+                            <p>Natural Language Processing (NLP) is a branch of artificial intelligence that focuses on the interaction between computers and humans using natural language. The ultimate objective is to read, decipher, understand, and make sense of human languages in a manner that is valuable.</p>
+                            <div class="highlight">
+                                <strong>Key Goal:</strong> Enable machines to understand, interpret, and generate human language in a way that is both meaningful and useful.
+                            </div>
+                        </div>
+                        <div class="topic">
+                            <h3>Language Processing Pipeline</h3>
+                            <p>The NLP pipeline consists of several stages:</p>
+                            <ol>
+                                <li><strong>Text Acquisition</strong> - Collecting raw text data</li>
+                                <li><strong>Text Cleaning</strong> - Removing noise, HTML tags</li>
+                                <li><strong>Tokenization</strong> - Breaking into words/sentences</li>
+                                <li><strong>Normalization</strong> - Lowercase, stemming, lemmatization</li>
+                                <li><strong>Feature Extraction</strong> - BoW, TF-IDF, embeddings</li>
+                                <li><strong>Modeling</strong> - ML/DL for specific tasks</li>
+                            </ol>
+                        </div>
+                        <div class="topic">
+                            <h3>Challenges in NLP</h3>
+                            <ul>
+                                <li><strong>Ambiguity</strong> - Lexical, syntactic, semantic</li>
+                                <li><strong>Context Dependency</strong> - Requires world knowledge</li>
+                                <li><strong>Coreference Resolution</strong> - Pronoun reference</li>
+                                <li><strong>Negation & Sarcasm</strong> - Non-literal meaning</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Unit 2 -->
+                <div id="unit2" class="unit">
+                    <div class="unit-header">
+                        <h2>Unit 2: Morphological Analysis & Text Processing</h2>
+                        <p class="subtitle">Word Formation, Stemming, and Lemmatization</p>
+                    </div>
+                    <div class="unit-content">
+                        <div class="topic">
+                            <h3>Morphology and Morphemes</h3>
+                            <p>Morphology studies word structure. A morpheme is the smallest meaningful unit.</p>
+                            <ul>
+                                <li><strong>Free:</strong> cat, run</li>
+                                <li><strong>Bound:</strong> un-, -ed</li>
+                                <li><strong>Inflectional:</strong> cats, walked</li>
+                                <li><strong>Derivational:</strong> unhappy</li>
+                            </ul>
+                        </div>
+                        <div class="topic">
+                            <h3>Stemming Algorithms</h3>
+                            <p>Reduces words to root form by removing suffixes.</p>
+                            <div class="code-block">
+porter_stemmer.stem("running") → "run"<br>
+porter_stemmer.stem("happily") → "happi"
+                            </div>
+                        </div>
+                        <div class="topic">
+                            <h3>Lemmatization</h3>
+                            <p>Reduces to dictionary form using context and POS.</p>
+                            <div class="code-block">
+lemmatizer.lemmatize("better", pos='a') → "good"
+                            </div>
+                            <div class="highlight">
+                                <strong>Stemming:</strong> Fast, crude | <strong>Lemmatization:</strong> Accurate, linguistic
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Unit 3 -->
+                <div id="unit3" class="unit">
+                    <div class="unit-header">
+                        <h2>Unit 3: Syntax and Parsing</h2>
+                        <p class="subtitle">Phrase Structure, Dependency Parsing, and Grammar</p>
+                    </div>
+                    <div class="unit-content">
+                        <div class="topic">
+                            <h3>Context-Free Grammar (CFG)</h3>
+                            <div class="code-block">
+S → NP VP<br>
+NP → Det N<br>
+VP → V NP<br>
+Det → "the" | "a"
+                            </div>
+                        </div>
+                        <div class="topic">
+                            <h3>Parsing Techniques</h3>
+                            <ul>
+                                <li>Top-Down, Bottom-Up</li>
+                                <li>CKY Algorithm</li>
+                                <li>Earley Parser</li>
+                            </ul>
+                        </div>
+                        <div class="topic">
+                            <h3>Dependency Parsing</h3>
+                            <div class="highlight">
+                                "The cat sat on the mat"<br>
+                                → nsubj: cat → sat<br>
+                                → prep: on → sat
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Unit 4 -->
+                <div id="unit4" class="unit">
+                    <div class="unit-header">
+                        <h2>Unit 4: Semantic Analysis</h2>
+                        <p class="subtitle">Meaning Representation and Word Sense Disambiguation</p>
+                    </div>
+                    <div class="unit-content">
+                        <div class="topic">
+                            <h3>Word Sense Disambiguation (WSD)</h3>
+                            <div class="highlight">
+                                "bank" → financial vs. river edge
+                            </div>
+                        </div>
+                        <div class="topic">
+                            <h3>Semantic Role Labeling (SRL)</h3>
+                            <div class="code-block">
+[ARG0: John] [REL: broke] [ARG1: window]
+                            </div>
+                        </div>
+                        <div class="topic">
+                            <h3>Distributional Semantics</h3>
+                            <ul>
+                                <li>Word2Vec (CBOW, Skip-gram)</li>
+                                <li>GloVe</li>
+                                <li>FastText</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Unit 5 -->
+                <div id="unit5" class="unit">
+                    <div class="unit-header">
+                        <h2>Unit 5: Applications and Advanced Topics</h2>
+                        <p class="subtitle">Machine Translation, Chatbots, and Transformers</p>
+                    </div>
+                    <div class="unit-content">
+                        <div class="topic">
+                            <h3>Machine Translation</h3>
+                            <ul>
+                                <li>Rule-based</li>
+                                <li>Statistical</li>
+                                <li>Neural (Seq2Seq + Attention)</li>
+                            </ul>
+                        </div>
+                        <div class="topic">
+                            <h3>Dialogue Systems</h3>
+                            <ul>
+                                <li>ELIZA (rule-based)</li>
+                                <li>Retrieval vs. Generative</li>
+                                <li>Task-oriented (intent, slots)</li>
+                            </ul>
+                        </div>
+                        <div class="topic">
+                            <h3>Transformers and BERT</h3>
+                            <div class="code-block">
+model = BertForSequenceClassification.from_pretrained('bert-base-uncased')
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Reflection Section -->
+        <section id="reflection" class="section">
+            <div class="section-header">
+                <h2>Reflection Section</h2>
+                <p class="subtitle">My Personal Learning Journey</p>
+            </div>
+            <div class="section-content">
+                <div class="subsection">
+                    <h3>What new skills did I gain?</h3>
+                    <p>Mastered NLP pipeline implementation using NLTK, spaCy, and Hugging Face. Learned to fine-tune BERT for sentiment analysis and build end-to-end text classification systems. Gained proficiency in transformer architectures and prompt engineering.</p>
+                </div>
+                <div class="subsection">
+                    <h3>What was most challenging?</h3>
+                    <p>Handling semantic ambiguity in real-world noisy data and optimizing parsing for long sentences. Fine-tuning large models on limited hardware was technically demanding.</p>
+                </div>
+                <div class="subsection">
+                    <h3>How did I improve from start to end?</h3>
+                    <p>Began with basic tokenization; ended with deploying a BERT-based fake news detector with 89% F1-score. Confidence in debugging, model evaluation, and documentation improved significantly.</p>
+                </div>
+                <div class="subsection">
+                    <h3>How can I apply this knowledge in the future?</h3>
+                    <p>Develop AI chatbots, content moderation tools, and multilingual translation apps. Pursue roles in NLP research, AI product development, or data science focusing on unstructured text.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Achievements / Highlights Section -->
+        <section id="achievements" class="section">
+            <div class="section-header">
+                <h2>Achievements / Highlights</h2>
+                <p class="subtitle">Projects, Case Studies, and Certifications</p>
+            </div>
+            <div class="section-content">
+                <div class="subsection">
+                    <h3>Projects</h3>
+                    <ul>
+                        <li><strong>Fake News Detector:</strong> BERT + TF-IDF ensemble, 89% F1-score</li>
+                        <li><strong>Customer Support Chatbot:</strong> Intent classification + response generation</li>
+                        <li><strong>Sentiment Analysis Dashboard:</strong> Real-time movie review classifier</li>
+                    </ul>
+                </div>
+                <div class="subsection">
+                    <h3>Case Studies</h3>
+                    <p>Detailed analysis of GPT-3 for text summarization (see dedicated section).</p>
+                </div>
+                <div class="subsection">
+                    <h3>Certifications</h3>
+                    <ul>
+                        <li>Coursera: <strong>Natural Language Processing Specialization</strong> by deeplearning.ai (20+ hours)</li>
+                        <li>Alternative: This comprehensive course portfolio with live demo</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Case Study Section -->
+        <section id="case-study" class="section">
+            <div class="section-header">
+                <h2>Case Study</h2>
+                <p class="subtitle">Text Summarization Using GPT-3</p>
+            </div>
+            <div class="section-content">
+                <div class="subsection">
+                    <h3>NLP Application</h3>
+                    <p><strong>Text Summarization</strong> – Condenses long documents into concise, coherent summaries.</p>
+                </div>
+                <div class="subsection">
+                    <h3>Downstream Task</h3>
+                    <p>Abstractive summarization using sequence-to-sequence generation with coherence and relevance.</p>
+                </div>
+                <div class="subsection">
+                    <h3>Large Language Model</h3>
+                    <p><strong>GPT-3 (175B parameters)</strong> by OpenAI – excels in few-shot learning for summarization.</p>
+                </div>
+                <div class="subsection">
+                    <h3>Model Description</h3>
+                    <p>Autoregressive transformer decoder pre-trained on internet-scale text. Uses prompt engineering:</p>
+                    <div class="code-block">
+Prompt: "Summarize in 3 sentences: [article]"
+                    </div>
+                    <p>Achieves ROUGE-L ~0.45 on CNN/Daily Mail. Strengths: fluency, zero-shot capability. Limitations: hallucinations, bias.</p>
+                </div>
+                <div class="subsection">
+                    <h3>Conclusion</h3>
+                    <p>GPT-3 enables scalable, high-quality summarization with minimal fine-tuning. Ideal for journalism, research, and content curation. Future: domain-specific fine-tuning for precision.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Project Report Section -->
+        <section id="project" class="section">
+            <div class="section-header">
+                <h2>Project Report</h2>
+                <p class="subtitle">Fake News Detection System (28 Pages)</p>
+            </div>
+            <div class="section-content">
+                <div class="subsection">
+                    <h3>Project Title</h3>
+                    <p><strong>Hybrid NLP System for Real-Time Fake News Detection</strong></p>
+                </div>
+                <div class="subsection">
+                    <h3>Key Features</h3>
+                    <ul>
+                        <li>Preprocessing: Tokenization, NER, fact-check integration</li>
+                        <li>Features: TF-IDF + BERT embeddings</li>
+                        <li>Models: LSTM, XGBoost, Ensemble</li>
+                        <li>Performance: F1 = 0.89, Accuracy = 91%</li>
+                        <li>Demo: Web interface with live prediction</li>
+                    </ul>
+                </div>
+                <div class="subsection">
+                    <h3>Submission & Review</h3>
+                    <p>Hard copy submitted: <strong>05.11.2025</strong><br>
+                    Project Review & Demo: <strong>Day 5, Optional Hour</strong></p>
+                </div>
+                <div class="github-link">
+                    <a href="https://github.com/anikmukherjee/nlp-portfolio/raw/main/project-report.pdf" target="_blank">Download Full Report (PDF)</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Anik Mukherjee | Natural Language Processing Course Portfolio (CS419)</p>
+        <p>B.Tech Computer Science & Engineering | SRM Institute of Science and Technology</p>
+    </footer>
+
+    <script>
+        // Show main section
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(s => s.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
+
+            const buttons = document.querySelectorAll('.nav-btn');
+            buttons.forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        // Show unit within units section
+        function showUnit(unitId) {
+            const units = document.querySelectorAll('.unit');
+            units.forEach(u => u.classList.remove('active'));
+            document.getElementById(unitId).classList.add('active');
+        }
+
+        // Auto-highlight nav on scroll
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(sec => {
+                const rect = sec.getBoundingClientRect();
+                if (rect.top >= 0 && rect.top <= 300) {
+                    const id = sec.id;
+                    document.querySelectorAll('.nav-btn').forEach(btn => {
+                        btn.classList.remove('active');
+                        if (btn.getAttribute('onclick').includes(id)) {
+                            btn.classList.add('active');
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
